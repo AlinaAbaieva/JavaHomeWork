@@ -13,7 +13,6 @@ public class Bingo {
         System.out.println("Пропробуйте угадать число. Ваша догадка: ");
         int guessNum = scan.nextInt();
 
-        // Проверка числа
         int countFail = 0;
 
         // Число не угадано
