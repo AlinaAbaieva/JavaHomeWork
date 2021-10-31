@@ -58,9 +58,9 @@ public class Library {
         reader1.takeBook(3);
         reader1.returnBook(2);
         reader2.takeBook("«Программирование: введение в профессию»", "«Белый Клык»");
-        reader2.returnBook("«Программирование: введение в профессию»");
+        reader2.returnBook("«Белый Клык»", "«Программирование: введение в профессию»");
         reader3.takeBook(book1, book3);
-        reader3.returnBook(book3);
+        reader3.returnBook(book3, book1);
 
     }
 
