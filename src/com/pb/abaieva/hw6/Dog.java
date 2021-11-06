@@ -27,7 +27,7 @@ public class Dog extends Animal {
     @Override
     public String toString() {
         String walkStatus = needsWalk ? "требуется" : "не требуется";
-        return "Собака (питание: " + food + ", ареал: " + location + ", выгул: " + walkStatus + ")";
+        return "Собака (питание: " + food + "; место проживания: " + location + "; выгул: " + walkStatus + ")";
     }
 
     @Override

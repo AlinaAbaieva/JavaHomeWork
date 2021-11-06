@@ -26,7 +26,7 @@ public class Cat extends Animal {
 
     @Override
     public String toString() {
-        return "Кот (питание: " + food + ", ареал: " + location + ", состояние когтей: " + clawSharpness + ")";
+        return "Кот (питание: " + food + "; место проживания: " + location + ", состояние когтей: " + clawSharpness + ")";
     }
 
     @Override

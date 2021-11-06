@@ -27,7 +27,7 @@ public class Horse extends Animal {
     @Override
     public String toString() {
         String horseRider = isMounted ? "есть" : "нет";
-        return "Лошадь (питание: " + food + ", ареал: " + location + ", наездник: " + horseRider + ")";
+        return "Лошадь (питание: " + food + "; место проживания: " + location + ", наездник: " + horseRider + ")";
     }
 
     @Override
