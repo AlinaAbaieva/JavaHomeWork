@@ -168,6 +168,7 @@ public class Phonebook {
         Scanner scan = new Scanner(System.in);
 
         int conNum = scan.nextInt() - 1;
+        scan.nextLine();
 
         System.out.println("----------------------------------------");
         System.out.println("Контакт " + contactList.get(conNum).getName() + " удаляется...");
@@ -237,6 +238,7 @@ public class Phonebook {
                 contactList.sort(Comparator.comparing(Contact::getbDate));
                 break;
         }
+        scan.nextLine();
 
         for (int i = 0; i < contactList.size(); i++) {
             System.out.println("*** Контакт №" + (i+1) + " ***");
@@ -272,10 +274,11 @@ public class Phonebook {
         Scanner scan = new Scanner(System.in);
 
         Contact contact = contactList.get(scan.nextInt() - 1);
-
-        String conOldName = contact.getName();
+        scan.nextLine();
 
         System.out.println("----------------------------------------");
+
+        String conOldName = contact.getName();
 
         // name
         System.out.println("Введите новое имя:");
@@ -308,9 +311,9 @@ public class Phonebook {
 
         // system
         System.out.println("----------------------------------------");
-        contactList.add(contact);
         System.out.println("Контакт *" + conOldName + "* был сохранен заново как *" + contact.getName() + "*!");
         System.out.println("****************************************");
+
         openPhonebook(contactList);
 
     }
@@ -393,6 +396,8 @@ public class Phonebook {
         String sbString = stringBuilder.toString();
 
         ArrayList<Contact> contactList = objectMapper.readValue(sbString, new TypeReference<ArrayList<Contact>>() {});
+
+        loadContacts.close();
 
         System.out.println("Контакты загружены.");
         System.out.println("****************************************");
