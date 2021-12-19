@@ -26,12 +26,18 @@ public class Phonebook {
         basilPhones.add("+380503681732");
         basilPhones.add("+380663227892");
 
-        Contact basil = new Contact("Basil BestFriendo", LocalDate.of(1992, 2, 28), basilPhones, LocalDateTime.now());
-        Contact vince = new Contact("Vince", LocalDate.of(2009, 4, 22), basilPhones, LocalDateTime.now());
-        Contact buck = new Contact("Buck", LocalDate.of(1991, 1, 1), basilPhones, LocalDateTime.now());
+        ArrayList<String> wilhelmPhones = new ArrayList<>();
+        wilhelmPhones.add("101");
+
+        ArrayList<String> buckPhones = new ArrayList<>();
+        buckPhones.add("+1 (010) 101 111");
+
+        Contact basil = new Contact("Васильев Василий Васильевич", LocalDate.of(1992, 2, 28), basilPhones, LocalDateTime.now());
+        Contact wilhelm = new Contact("Фридрих Вильгельм Виктор Альберт Прусский", LocalDate.of(1941, 7, 4), wilhelmPhones, LocalDateTime.now());
+        Contact buck = new Contact("Бак", LocalDate.of(1991, 1, 1), buckPhones, LocalDateTime.now());
 
         contactList.add(basil);
-        contactList.add(vince);
+        contactList.add(wilhelm);
         contactList.add(buck);
 
         showMenu();
@@ -40,21 +46,19 @@ public class Phonebook {
 
     public static void showMenu() throws IOException {
 
+        System.out.println("****************************************");
+        System.out.println("ТЕЛЕФОННАЯ КНИГА");
         System.out.println("----------------------------------------");
-        System.out.println("Your Phonebook!");
-        System.out.println("----------------------------------------");
-        System.out.println("MENU");
-        System.out.println("1. Add new Contact.");
-        System.out.println("2. Delete Contact.");
-        System.out.println("3. Find Contact.");
-        System.out.println("4. Show all Contacts.");
-        System.out.println("5. Change Contact.");
-        System.out.println("6. Create a save file.");
-        System.out.println("7. Load a save file.");
-        System.out.println("8. Exit.");
-        System.out.println("----------------------------------------");
-        System.out.println("SELECT MENU NUMBER. TYPE \"menu\" TO SEE MENU AGAIN");
-        System.out.println("----------------------------------------");
+        System.out.println("МЕНЮ");
+        System.out.println("1. Добавить новый контакт");
+        System.out.println("2. Удалить контакт");
+        System.out.println("3. Найти контакт");
+        System.out.println("4. Показать все контакты");
+        System.out.println("5. Изменить контакт");
+        System.out.println("6. Сохранить контакты");
+        System.out.println("7. Загрузить контакты");
+        System.out.println("8. Закрыть телефонную книгу");
+        System.out.println("****************************************");
 
         openPhonebook(contactList);
 
@@ -62,10 +66,13 @@ public class Phonebook {
 
     public static void openPhonebook(ArrayList<Contact> contactList) throws IOException {
 
+        System.out.println("****************************************");
+        System.out.println("ВЫБЕРИТЕ ПУНКТ МЕНЮ. Чтобы просмотреть меню еще раз, напишите \"меню\"");
+
         Scanner scan = new Scanner(System.in);
 
-        switch (scan.next()) {
-            case "menu":
+        switch (scan.nextLine()) {
+            case "меню":
                 showMenu();
                 break;
             case "1":
@@ -97,31 +104,35 @@ public class Phonebook {
 
     public static void addContact(ArrayList<Contact> contactList) throws IOException {
 
+        System.out.println("****************************************");
+        System.out.println("ДОБАВЛЕНИЕ НОВОГО КОНТАКТА");
+        System.out.println("----------------------------------------");
+
         Contact contact = new Contact();
         Scanner scan = new Scanner(System.in);
 
         // name
-        System.out.println("Enter name:");
-        contact.setName(scan.next());
+        System.out.println("Введите имя:");
+        contact.setName(scan.nextLine());
 
         // bDate
-        System.out.println("Enter date of birth:");
-        contact.setbDate(LocalDate.parse(scan.next(), DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        System.out.println("Введите дату рождения (дд.ММ.гггг):");
+        contact.setbDate(LocalDate.parse(scan.nextLine(), DateTimeFormatter.ofPattern("dd.MM.yyyy")));
 
         // phoneList
         ArrayList<String> phones = new ArrayList<>();
 
-        System.out.println("Enter phone number:");
-        phones.add(scan.next());
+        System.out.println("Введите номер телефона:");
+        phones.add(scan.nextLine());
 
-        String enterAnotherPhoneMsg = "Enter another phone number or write \"done\":";
+        String enterAnotherPhoneMsg = "Введите дополнительный номер телефона или напишите \"нет\":";
         System.out.println(enterAnotherPhoneMsg);
-        String anotherPhone = scan.next();
+        String anotherPhone = scan.nextLine();
 
-        while (!anotherPhone.equals("done")) {
+        while (!anotherPhone.equals("нет")) {
             System.out.println(enterAnotherPhoneMsg);
             phones.add(anotherPhone);
-            anotherPhone = scan.next();
+            anotherPhone = scan.nextLine();
         }
 
         contact.setPhoneList(phones);
@@ -131,32 +142,40 @@ public class Phonebook {
 
         // system
         contactList.add(contact);
-        System.out.println("Contact created: " + contact.getName() + "!");
+        System.out.println("----------------------------------------");
+        System.out.println("Создан новый контакт: " + contact.getName() + "!");
+        System.out.println("****************************************");
         openPhonebook(contactList);
 
     }
 
     public static void deleteContact(ArrayList<Contact> contactList) throws IOException {
 
+        System.out.println("****************************************");
+        System.out.println("УДАЛЕНИЕ КОНТАКТА");
+        System.out.println("----------------------------------------");
+
         for (int i = 0; i < contactList.size(); i++) {
 
-            System.out.println("*** Contact " + (i+1) + " ***");
+            System.out.println("*** Контакт №" + (i+1) + " ***");
             System.out.println(contactList.get(i).toString());
             System.out.println("----------------------------------------");
 
         }
 
-        System.out.println("SELECT CONTACT NUMBER TO DELETE:");
+        System.out.println("ВЫБЕРИТЕ НОМЕР КОНТАКТА ДЛЯ УДАЛЕНИЯ:");
 
         Scanner scan = new Scanner(System.in);
 
         int conNum = scan.nextInt() - 1;
 
-        System.out.println("Contact " + contactList.get(conNum).getName() + " is being deleted...");
+        System.out.println("----------------------------------------");
+        System.out.println("Контакт " + contactList.get(conNum).getName() + " удаляется...");
 
         contactList.remove(conNum);
 
-        System.out.println("Deleted successfully. So sad :C");
+        System.out.println("Контакт удален. Очень жаль :C");
+        System.out.println("****************************************");
 
         openPhonebook(contactList);
 
@@ -164,11 +183,15 @@ public class Phonebook {
 
     public static void findContact(ArrayList<Contact> contactList) throws IOException {
 
+        System.out.println("****************************************");
+        System.out.println("ПОИСК КОНТАКТА ПО ИМЕНИ");
+        System.out.println("----------------------------------------");
+
         Scanner scan = new Scanner(System.in);
 
-        System.out.println("Enter search key:");
+        System.out.println("Введите имя:");
 
-        String searchKey = scan.next();
+        String searchKey = scan.nextLine();
 
         int cntSrchResults = 0;
 
@@ -183,10 +206,12 @@ public class Phonebook {
         }
 
         if (cntSrchResults == 0) {
-            System.out.println("No such contact.");
+            System.out.println("Такого контакта не существует.");
         } else {
-            System.out.println("Search done.");
+            System.out.println("Поиск выполнен.");
         }
+
+        System.out.println("****************************************");
 
         openPhonebook(contactList);
 
@@ -194,11 +219,15 @@ public class Phonebook {
 
     public static void showAllContacts(ArrayList<Contact> contactList) throws IOException {
 
+        System.out.println("****************************************");
+        System.out.println("СПИСОК КОНТАКТОВ");
+        System.out.println("----------------------------------------");
+
         Scanner scan = new Scanner(System.in);
 
-        System.out.println("Select sorting by...");
-        System.out.println("1. Name");
-        System.out.println("2. Date of Birth");
+        System.out.println("Отсортировать по...");
+        System.out.println("1. Имени");
+        System.out.println("2. Дате рождения");
 
         switch (scan.nextInt()) {
             case 1:
@@ -210,11 +239,15 @@ public class Phonebook {
         }
 
         for (int i = 0; i < contactList.size(); i++) {
-            System.out.println("*** Contact " + (i+1) + " ***");
+            System.out.println("*** Контакт №" + (i+1) + " ***");
             System.out.println(contactList.get(i).toString());
             System.out.println("----------------------------------------");
 
         }
+
+        System.out.println("****************************************");
+        System.out.println("ВЫ ВОЗВРАЩЕНЫ В МЕНЮ");
+        System.out.println("****************************************");
 
         openPhonebook(contactList);
 
@@ -222,16 +255,19 @@ public class Phonebook {
 
     public static void changeContact() throws IOException {
 
+        System.out.println("****************************************");
+        System.out.println("РЕДАКТИРОВАНИЕ КОНТАКТА");
+        System.out.println("----------------------------------------");
 
         for (int i = 0; i < contactList.size(); i++) {
 
-            System.out.println("*** Contact " + (i+1) + " ***");
+            System.out.println("*** Контакт №" + (i+1) + " ***");
             System.out.println(contactList.get(i).toString());
             System.out.println("----------------------------------------");
 
         }
 
-        System.out.println("SELECT CONTACT NUMBER TO CHANGE:");
+        System.out.println("ВЫБЕРИТЕ НОМЕР КОНТАКТА:");
 
         Scanner scan = new Scanner(System.in);
 
@@ -239,28 +275,30 @@ public class Phonebook {
 
         String conOldName = contact.getName();
 
+        System.out.println("----------------------------------------");
+
         // name
-        System.out.println("Enter new name:");
-        contact.setName(scan.next());
+        System.out.println("Введите новое имя:");
+        contact.setName(scan.nextLine());
 
         // bDate
-        System.out.println("Enter new date of birth:");
-        contact.setbDate(LocalDate.parse(scan.next(), DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        System.out.println("Введите новую дату рождения (дд.ММ.гггг):");
+        contact.setbDate(LocalDate.parse(scan.nextLine(), DateTimeFormatter.ofPattern("dd.MM.yyyy")));
 
         // phoneList
         ArrayList<String> phones = new ArrayList<>();
 
-        System.out.println("Enter new phone number:");
-        phones.add(scan.next());
+        System.out.println("Введите новый номер телефона:");
+        phones.add(scan.nextLine());
 
-        String enterAnotherPhoneMsg = "Enter another phone number or write \"done\":";
+        String enterAnotherPhoneMsg = "Введите дополнительный номер телефона или напишите \"нет\":";
         System.out.println(enterAnotherPhoneMsg);
-        String anotherPhone = scan.next();
+        String anotherPhone = scan.nextLine();
 
-        while (!anotherPhone.equals("done")) {
+        while (!anotherPhone.equals("нет")) {
             System.out.println(enterAnotherPhoneMsg);
             phones.add(anotherPhone);
-            anotherPhone = scan.next();
+            anotherPhone = scan.nextLine();
         }
 
         contact.setPhoneList(phones);
@@ -269,15 +307,19 @@ public class Phonebook {
         contact.setLastEdit(LocalDateTime.now());
 
         // system
+        System.out.println("----------------------------------------");
         contactList.add(contact);
-        System.out.println("Contact *" + conOldName + "* saved as *" + contact.getName() + "*!");
-        openPhonebook(contactList);
-
+        System.out.println("Контакт *" + conOldName + "* был сохранен заново как *" + contact.getName() + "*!");
+        System.out.println("****************************************");
         openPhonebook(contactList);
 
     }
 
     public static void createSaveFile(ArrayList<Contact> contactList) throws IOException {
+
+        System.out.println("****************************************");
+        System.out.println("СОХРАНЕНИЕ КОНТАКТОВ");
+        System.out.println("----------------------------------------");
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -304,13 +346,17 @@ public class Phonebook {
 
         saveContacts.close();
 
-        System.out.println("Contacts saved.");
+        System.out.println("Контакты сохранены.");
 
         openPhonebook(contactList);
 
     }
 
     public static void loadSaveFile() throws IOException {
+
+        System.out.println("****************************************");
+        System.out.println("ЗАГРУЗКА КОНТАКТОВ");
+        System.out.println("----------------------------------------");
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -328,9 +374,6 @@ public class Phonebook {
         objectMapper.registerModule(moduleLD);
 
         // LOAD
-        // String json = objectMapper.readValue(scan.next(), ArrayList.class);
-
-        // System.out.println(json);
 
         Path path = Paths.get("files/contacts.txt");
 
@@ -351,7 +394,10 @@ public class Phonebook {
 
         ArrayList<Contact> contactList = objectMapper.readValue(sbString, new TypeReference<ArrayList<Contact>>() {});
 
-        System.out.println("Contacts loaded.");
+        System.out.println("Контакты загружены.");
+        System.out.println("****************************************");
+
+        openPhonebook(contactList);
 
     }
 

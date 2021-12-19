@@ -64,7 +64,7 @@ public class Contact {
         return
                 name + "\r\n" +
                         dateOfBirth.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")) + "\r\n" +
-                        phoneList + "\r\nLast edited at " +
+                        phoneList + "\r\nПоследние изменение - " +
                         lastEdit.format(DateTimeFormatter.ofPattern("HH:mm:ss dd.MM.yyyy"));
     }
 
