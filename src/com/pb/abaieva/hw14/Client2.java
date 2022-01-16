@@ -29,8 +29,8 @@ public class Client2 {
 
         String str;
         while ((str = br.readLine()) != null) {
-            if (str.equals("выход")) {
-                System.out.println("Запрос на выход отправлен.");
+            if (str.equals("Выход клиента.")) {
+                System.out.println("Соединение с сервером закрыто.");
 
                 br.close();
                 pw.close();
