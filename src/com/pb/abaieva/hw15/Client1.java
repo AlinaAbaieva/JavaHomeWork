@@ -35,6 +35,10 @@ public class Client1 {
         bSendMsg.setBounds(370,340,100,30);
         frame.add(bSendMsg);
 
+        Button bClose = new Button("Отключиться");
+        bClose.setBounds(20,340,100,30);
+        frame.add(bClose);
+
         String txt = "Начните работу с сервером.";
         TextArea msgLog = new TextArea(txt);
         msgLog.setBackground(Color.GRAY);
@@ -46,14 +50,9 @@ public class Client1 {
         frame.add(textField);
 
         int portNumber = 1777;
-        String clName = "CLIENT-1";
+        String clName = "Пётр";
 
         Socket socket = new Socket("127.0.0.1", portNumber);
-
-        String txtStr = "\n" + clName + " подключен.";
-        System.out.println(txtStr);
-        msgLog.append(txtStr);
-        new TextArea(clName + " подключен.");
 
         BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
@@ -70,13 +69,16 @@ public class Client1 {
             pw.println(tfText);
             textField.setText("");
         };
+        ActionListener clickClose = e -> pw.println("выход");
+
 
         bSendMsg.addActionListener(clickSendMsg);
         textField.addActionListener(clickEnter);
+        bClose.addActionListener(clickClose);
 
         String str;
         while ((str = br.readLine()) != null) {
-            if (str.equals("Выход клиента.")) {
+            if (str.equals("Клиент " + clName + "отключился от сервера.")) {
                 msgLog.append("\n" + "Соединение с сервером закрыто.");
 
                 br.close();
