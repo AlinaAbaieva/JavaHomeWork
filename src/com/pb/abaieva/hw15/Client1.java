@@ -1,6 +1,7 @@
 package com.pb.abaieva.hw15;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
@@ -8,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Client1 {
 
@@ -60,16 +60,24 @@ public class Client1 {
         PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
         pw.println(clName);
 
-        bSendMsg.addActionListener();
+        ActionListener clickSendMsg = e -> {
+            String tfText = textField.getText();
+            pw.println(tfText);
+            textField.setText("");
+        };
+        ActionListener clickEnter = e -> {
+            String tfText = textField.getText();
+            pw.println(tfText);
+            textField.setText("");
+        };
 
-        Scanner scanner = new Scanner(System.in);
-        String strToServer = (scanner.nextLine());
-        pw.println(strToServer);
+        bSendMsg.addActionListener(clickSendMsg);
+        textField.addActionListener(clickEnter);
 
         String str;
         while ((str = br.readLine()) != null) {
-            if (str.equals("выход")) {
-                System.out.println("Запрос на выход отправлен.");
+            if (str.equals("Выход клиента.")) {
+                msgLog.append("\n" + "Соединение с сервером закрыто.");
 
                 br.close();
                 pw.close();
@@ -77,8 +85,7 @@ public class Client1 {
 
                 break;
             }
-            System.out.println(str);
-            pw.println(scanner.nextLine());
+            msgLog.append("\n" + str);
         }
 
     }
